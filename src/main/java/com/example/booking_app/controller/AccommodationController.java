@@ -4,6 +4,7 @@ import com.example.booking_app.dto.AccommodationDto;
 import com.example.booking_app.dto.CreateAccommodationRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +34,14 @@ public class AccommodationController {
 
     @Operation(summary = "Create a new accommodation", description = "Creates a new accommodation")
     @PostMapping
-    public AccommodationDto create(@RequestBody CreateAccommodationRequestDto dto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public AccommodationDto create( @Valid @RequestBody CreateAccommodationRequestDto dto) {
         return accommodationService.createAccommodation(dto);
     }
 
     @Operation(summary = "Update an accommodation", description = "Updates accommodation by ID")
     @PutMapping("/{id}")
-    public AccommodationDto update(@PathVariable Long id, @RequestBody CreateAccommodationRequestDto dto) {
+    public AccommodationDto update(@PathVariable Long id,  @Valid @RequestBody CreateAccommodationRequestDto dto) {
         return accommodationService.updateAccommodation(id, dto);
     }
 
