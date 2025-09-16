@@ -1,11 +1,28 @@
 package com.example.booking_app.service;
 
+import static com.example.booking_app.util.AccommodationTestConstants.AMENITIES;
+import static com.example.booking_app.util.AccommodationTestConstants.AVAILABILITY;
+import static com.example.booking_app.util.AccommodationTestConstants.DAILY_RATE;
+import static com.example.booking_app.util.AccommodationTestConstants.INVALID_ID;
+import static com.example.booking_app.util.AccommodationTestConstants.LOCATION;
+import static com.example.booking_app.util.AccommodationTestConstants.SIZE;
+import static com.example.booking_app.util.AccommodationTestConstants.TYPE;
+import static com.example.booking_app.util.AccommodationTestConstants.VALID_ID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.example.booking_app.dto.AccommodationDto;
 import com.example.booking_app.dto.CreateAccommodationRequestDto;
 import com.example.booking_app.exception.EntityNotFoundException;
 import com.example.booking_app.mapper.AccommodationMapper;
 import com.example.booking_app.model.Accommodation;
 import com.example.booking_app.repository.AccommodationRepository;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,14 +30,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-import java.util.Optional;
-
-import static com.example.booking_app.util.AccommodationTestConstants.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccommodationServiceTest {
@@ -33,8 +42,11 @@ class AccommodationServiceTest {
     private AccommodationServiceImpl accommodationService;
 
     private CreateAccommodationRequestDto requestDto;
+
     private Accommodation mappedAccommodation;
+
     private Accommodation savedAccommodation;
+
     private AccommodationDto mappedDto;
 
     @BeforeEach
@@ -94,7 +106,7 @@ class AccommodationServiceTest {
     @DisplayName("getAccommodationById_ValidId_ReturnsDto")
     void getAccommodationById_ValidId_ReturnsDto() {
         when(accommodationRepository.findById(VALID_ID))
-                .thenReturn(Optional.of(savedAccommodation));
+            .thenReturn(Optional.of(savedAccommodation));
         when(accommodationMapper.toDto(savedAccommodation)).thenReturn(mappedDto);
 
         AccommodationDto result = accommodationService.getAccommodationById(VALID_ID);
@@ -106,13 +118,13 @@ class AccommodationServiceTest {
     @DisplayName("getAccommodationById_InvalidId_ThrowsException")
     void getAccommodationById_InvalidId_ThrowsException() {
         when(accommodationRepository.findById(INVALID_ID))
-                .thenReturn(Optional.empty());
+            .thenReturn(Optional.empty());
 
         Exception ex = assertThrows(EntityNotFoundException.class,
-                () -> accommodationService.getAccommodationById(INVALID_ID));
+            () -> accommodationService.getAccommodationById(INVALID_ID));
 
         assertEquals("Accommodation with id " + INVALID_ID + " not found",
-                ex.getMessage());
+            ex.getMessage());
     }
 
     @Test
@@ -131,12 +143,12 @@ class AccommodationServiceTest {
     @DisplayName("updateAccommodation_ValidRequest_ReturnsUpdatedDto")
     void updateAccommodation_ValidRequest_ReturnsUpdatedDto() {
         when(accommodationRepository.findById(VALID_ID))
-                .thenReturn(Optional.of(savedAccommodation));
+            .thenReturn(Optional.of(savedAccommodation));
         when(accommodationRepository.save(any(Accommodation.class))).thenReturn(savedAccommodation);
         when(accommodationMapper.toDto(savedAccommodation)).thenReturn(mappedDto);
 
         AccommodationDto result = accommodationService.updateAccommodation(
-                VALID_ID, requestDto);
+            VALID_ID, requestDto);
 
         assertEquals(mappedDto, result);
     }
@@ -145,17 +157,17 @@ class AccommodationServiceTest {
     @DisplayName("updateAccommodation_InvalidId_ThrowsException")
     void updateAccommodation_InvalidId_ThrowsException() {
         when(accommodationRepository.findById(INVALID_ID))
-                .thenReturn(Optional.empty());
+            .thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class,
-                () -> accommodationService.updateAccommodation(INVALID_ID, requestDto));
+            () -> accommodationService.updateAccommodation(INVALID_ID, requestDto));
     }
 
     @Test
     @DisplayName("deleteAccommodation_ValidId_DeletesEntity")
     void deleteAccommodation_ValidId_DeletesEntity() {
         when(accommodationRepository.findById(VALID_ID))
-                .thenReturn(Optional.of(savedAccommodation));
+            .thenReturn(Optional.of(savedAccommodation));
 
         accommodationService.deleteAccommodation(VALID_ID);
 
@@ -166,9 +178,9 @@ class AccommodationServiceTest {
     @DisplayName("deleteAccommodation_InvalidId_ThrowsException")
     void deleteAccommodation_InvalidId_ThrowsException() {
         when(accommodationRepository.findById(INVALID_ID))
-                .thenReturn(Optional.empty());
+            .thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class,
-                () -> accommodationService.deleteAccommodation(INVALID_ID));
+            () -> accommodationService.deleteAccommodation(INVALID_ID));
     }
 }

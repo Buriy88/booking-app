@@ -2,10 +2,9 @@ package com.example.booking_app.service;
 
 import com.example.booking_app.dto.AccommodationDto;
 import com.example.booking_app.dto.CreateAccommodationRequestDto;
-import java.util.List;
-
 import com.example.booking_app.exception.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import com.example.booking_app.mapper.AccommodationMapper;
 import com.example.booking_app.model.Accommodation;
@@ -15,8 +14,9 @@ import com.example.booking_app.repository.AccommodationRepository;
 @Service
 @Transactional
 @AllArgsConstructor
-public class AccommodationServiceImpl implements  AccommodationService {
+public class AccommodationServiceImpl implements AccommodationService {
     private final AccommodationRepository accommodationRepository;
+
     private final AccommodationMapper accommodationMapper;
 
 
@@ -31,25 +31,27 @@ public class AccommodationServiceImpl implements  AccommodationService {
     @Override
     public List<AccommodationDto> getAllAccommodations() {
         return accommodationRepository.findAll()
-                .stream()
-                .map(accommodationMapper::toDto)
-                .toList();
+            .stream()
+            .map(accommodationMapper::toDto)
+            .toList();
 
     }
 
     @Override
     public AccommodationDto getAccommodationById(Long id) {
         Accommodation accommodation = accommodationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Accommodation with id " + id
-                        + " not found"));
+            .orElseThrow(() -> new EntityNotFoundException(
+                "Accommodation with id " + id
+                    + " not found"));
         return accommodationMapper.toDto(accommodation);
     }
 
     @Override
-    public AccommodationDto updateAccommodation(Long id, CreateAccommodationRequestDto updateAccommodation) {
+    public AccommodationDto updateAccommodation(Long id,
+                                                CreateAccommodationRequestDto updateAccommodation) {
         Accommodation accommodation = accommodationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Accommodation with id " + id
-                        + " not found"));
+            .orElseThrow(() -> new EntityNotFoundException("Accommodation with id " + id
+                + " not found"));
         accommodationMapper.updateAccommodationFromDto(updateAccommodation, accommodation);
         accommodationRepository.save(accommodation);
         return accommodationMapper.toDto(accommodation);
@@ -58,8 +60,9 @@ public class AccommodationServiceImpl implements  AccommodationService {
     @Override
     public void deleteAccommodation(Long id) {
         Accommodation accommodation = accommodationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Accommodation with id " + id
-                + " not found"));
+            .orElseThrow(() -> new EntityNotFoundException(
+                "Accommodation with id " + id
+                    + " not found"));
         accommodationRepository.delete(accommodation);
     }
 }
