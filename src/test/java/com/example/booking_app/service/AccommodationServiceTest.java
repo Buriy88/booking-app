@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,6 +41,8 @@ class AccommodationServiceTest {
     private AccommodationMapper accommodationMapper;
     @InjectMocks
     private AccommodationServiceImpl accommodationService;
+    @Mock
+    private NotificationService notificationService;
 
     private CreateAccommodationRequestDto requestDto;
 
@@ -90,7 +93,11 @@ class AccommodationServiceTest {
     @DisplayName("createAccommodation_ValidRequest_ReturnsDto")
     void createAccommodation_ValidRequest_ReturnsDto() {
         when(accommodationMapper.toEntity(requestDto)).thenReturn(mappedAccommodation);
-        when(accommodationRepository.save(mappedAccommodation)).thenReturn(savedAccommodation);
+        when(accommodationRepository.save(any(Accommodation.class))).thenAnswer(inv -> {
+            Accommodation b = inv.getArgument(0);
+            b.setId(VALID_ID);
+            return b;
+        });
         when(accommodationMapper.toDto(any(Accommodation.class))).thenReturn(mappedDto);
 
         AccommodationDto result = accommodationService.createAccommodation(requestDto);
@@ -100,6 +107,8 @@ class AccommodationServiceTest {
         assertEquals(SIZE, result.getSize());
         assertEquals(DAILY_RATE, result.getDailyRate());
         verify(accommodationRepository).save(mappedAccommodation);
+        verify(notificationService)
+            .sendNotification(eq("✅ New accommodation created! ID: " + VALID_ID));
     }
 
     @Test
@@ -172,6 +181,9 @@ class AccommodationServiceTest {
         accommodationService.deleteAccommodation(VALID_ID);
 
         verify(accommodationRepository).delete(savedAccommodation);
+        verify(notificationService)
+            .sendNotification(eq("❌ Accommodation deleted! ID: " + VALID_ID));
+
     }
 
     @Test

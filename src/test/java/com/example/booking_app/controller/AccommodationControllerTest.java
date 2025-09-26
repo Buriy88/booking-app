@@ -8,6 +8,7 @@ import static com.example.booking_app.util.AccommodationTestUtil.createKyivApart
 import static com.example.booking_app.util.AccommodationTestUtil.createUpdateAccommodationDto;
 import static com.example.booking_app.util.AccommodationTestUtil.getAllTestAccommodations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,6 +32,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -52,7 +54,7 @@ public class AccommodationControllerTest {
     ) throws Exception {
         mockMvc = MockMvcBuilders
             .webAppContextSetup(webApplicationContext)
-            //.apply(springSecurity())
+            .apply(springSecurity())
             .build();
         teardown(dataSource);
         try (Connection connection = dataSource.getConnection()) {
@@ -83,6 +85,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("POST \"/accommodations\" - \"Create a new accommodation\"")
+    @WithMockUser(username = "manager", roles = "MANAGER")
     void Accommodation_ValidRequest() throws Exception {
         CreateAccommodationRequestDto createAccommodationRequestDto = createAccommodationRequest();
 
@@ -109,7 +112,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("GET api/accommodations/{id} - Get accommodation by ID")
-        //@WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "MANAGER")
     void getAccommodationById_ValidId_ReturnsBook() throws Exception {
         MvcResult result = mockMvc.perform(get("/api/accommodations/{id}", 1L)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -125,7 +128,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("PUT /api/accommodations/{id} - Update Accommodation")
-        // @WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "manager", roles = "MANAGER")
     void updateBook_ValidRequest() throws Exception {
         CreateAccommodationRequestDto updateDto = createUpdateAccommodationDto();
 
@@ -153,7 +156,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("Get all Accommodations")
-        // @WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void getAllAccommodations_ValidRequest() throws Exception {
         List<AccommodationDto> expected = getAllTestAccommodations();
 
@@ -176,7 +179,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("DELETE api/accommodations/{id} - Delete book")
-        //@WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void deleteAccommodations_ValidId_RemovesAccommodations() throws Exception {
         mockMvc.perform(delete("/api/accommodations/{id}", VALID_ID))
             .andExpect(status().isNoContent());
@@ -187,7 +190,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("POST /books - Invalid request (missing required fields)")
-        //@WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void createAccommodations_InvalidRequest_ReturnsBadRequest() throws Exception {
         CreateAccommodationRequestDto invalidBook = createInvalidAccommodationRequestDto();
 
@@ -201,7 +204,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("GET api/accommodations/{id} - Non-existing accommodations")
-        //@WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void getAccommodationsById_NotFound() throws Exception {
         mockMvc.perform(get("/api/accommodations/{id}", INVALID_ID)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -210,7 +213,7 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("PUT api/accommodations/{id} - Invalid update request")
-        //@WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void updateBook_InvalidRequest_ReturnsBadRequest() throws Exception {
         CreateAccommodationRequestDto invalidUpdate = createInvalidAccommodationRequestDto();
 
@@ -224,11 +227,9 @@ public class AccommodationControllerTest {
 
     @Test
     @DisplayName("DELETE api/accommodations/{id} - Non-existing accommodations")
-        //@WithMockUser(username = "admin", roles = "ADMIN")
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void deleteBook_NotFound() throws Exception {
         mockMvc.perform(delete("/api/accommodations/{id}", INVALID_ID))
             .andExpect(status().isNotFound());
     }
-
-
 }
