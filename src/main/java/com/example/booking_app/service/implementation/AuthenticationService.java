@@ -1,7 +1,7 @@
-package com.example.booking_app.service;
+package com.example.booking_app.service.implementation;
 
-import com.example.booking_app.dto.UserLoginRequestDto;
-import com.example.booking_app.dto.UserLoginResponseDto;
+import com.example.booking_app.dto.security.UserLoginRequestDto;
+import com.example.booking_app.dto.security.UserLoginResponseDto;
 import com.example.booking_app.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

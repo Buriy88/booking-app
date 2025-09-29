@@ -1,8 +1,10 @@
-package com.example.booking_app.service;
+package com.example.booking_app.service.implementation;
 
-import com.example.booking_app.dto.AccommodationDto;
-import com.example.booking_app.dto.CreateAccommodationRequestDto;
+import com.example.booking_app.dto.accommodation.AccommodationDto;
+import com.example.booking_app.dto.accommodation.CreateAccommodationRequestDto;
 import com.example.booking_app.exception.EntityNotFoundException;
+import com.example.booking_app.service.AccommodationService;
+import com.example.booking_app.service.NotificationService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.AllArgsConstructor;

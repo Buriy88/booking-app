@@ -1,12 +1,12 @@
 package com.example.booking_app.controller;
 
-import com.example.booking_app.dto.UserLoginRequestDto;
-import com.example.booking_app.dto.UserLoginResponseDto;
-import com.example.booking_app.dto.UserRegistrationRequestDto;
-import com.example.booking_app.dto.UserResponseDto;
+import com.example.booking_app.dto.security.UserLoginRequestDto;
+import com.example.booking_app.dto.security.UserLoginResponseDto;
+import com.example.booking_app.dto.security.UserRegistrationRequestDto;
+import com.example.booking_app.dto.security.UserResponseDto;
 import com.example.booking_app.exception.RegistrationException;
-import com.example.booking_app.service.AuthenticationService;
-import com.example.booking_app.service.UserService;
+import com.example.booking_app.service.implementation.AuthenticationService;
+import com.example.booking_app.service.implementation.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

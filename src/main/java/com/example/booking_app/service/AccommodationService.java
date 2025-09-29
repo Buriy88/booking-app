@@ -1,7 +1,7 @@
 package com.example.booking_app.service;
 
-import com.example.booking_app.dto.AccommodationDto;
-import com.example.booking_app.dto.CreateAccommodationRequestDto;
+import com.example.booking_app.dto.accommodation.AccommodationDto;
+import com.example.booking_app.dto.accommodation.CreateAccommodationRequestDto;
 import java.util.List;
 
 public interface AccommodationService {

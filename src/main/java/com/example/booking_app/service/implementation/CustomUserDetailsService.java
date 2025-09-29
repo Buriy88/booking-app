@@ -1,4 +1,4 @@
-package com.example.booking_app.service;
+package com.example.booking_app.service.implementation;
 
 import com.example.booking_app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

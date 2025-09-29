@@ -1,6 +1,6 @@
 package com.example.booking_app.config;
 
-import com.example.booking_app.service.CustomUserDetailsService;
+import com.example.booking_app.service.implementation.CustomUserDetailsService;
 import com.example.booking_app.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

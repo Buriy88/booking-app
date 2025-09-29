@@ -1,8 +1,8 @@
 package com.example.booking_app.service;
 
-import com.example.booking_app.dto.BookingDto;
-import com.example.booking_app.dto.BookingRequestDto;
-import com.example.booking_app.dto.BookingSearchParameterDto;
+import com.example.booking_app.dto.booking.BookingDto;
+import com.example.booking_app.dto.booking.BookingRequestDto;
+import com.example.booking_app.dto.booking.BookingSearchParameterDto;
 import com.example.booking_app.exception.EntityNotFoundException;
 import com.example.booking_app.mapper.BookingMapper;
 import com.example.booking_app.model.Accommodation;
@@ -12,6 +12,7 @@ import com.example.booking_app.repository.AccommodationRepository;
 import com.example.booking_app.repository.BookingRepository;
 import com.example.booking_app.repository.BookingSpecificationBuilder;
 import com.example.booking_app.repository.UserRepository;
+import com.example.booking_app.service.implementation.BookingServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
