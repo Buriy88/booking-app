@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: Buriy88
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "manager@admin.com"
+              - column:
+                  name: first_name
+                  value: "System"
+              - column:
+                  name: last_name
+                  value: "Manager"
+              - column:
+                  name: password
+                  value: "$2a$10$Dow1puxl69Y8PVnEo2DhQeY4Y94cM2KfDkz2AVPtTQdEYxr4G5WlS"
+              - column:
+                  name: role
+                  value: "ROLE_MANAGER"
