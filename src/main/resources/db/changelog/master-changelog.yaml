@@ -1,3 +1,11 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changesets/001create-accommodations-table.yaml
+  - include:
+      file: db/changelog/changesets/002create-user-table.yaml
+  - include:
+      file: db/changelog/changesets/003insert-user-table.yaml
+  - include:
+      file: db/changelog/changesets/004create-Booking-table.yaml
+  - include:
+      file: db/changelog/changesets/005create-payment-table.yaml
