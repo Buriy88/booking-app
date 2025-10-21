@@ -1,4 +1,4 @@
-package com.example.booking_app.dto;
+package com.example.booking_app.dto.accommodation;
 
 import com.example.booking_app.model.Type;
 import java.math.BigDecimal;

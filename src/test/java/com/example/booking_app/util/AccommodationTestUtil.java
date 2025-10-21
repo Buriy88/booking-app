@@ -1,7 +1,7 @@
 package com.example.booking_app.util;
 
-import com.example.booking_app.dto.AccommodationDto;
-import com.example.booking_app.dto.CreateAccommodationRequestDto;
+import com.example.booking_app.dto.accommodation.AccommodationDto;
+import com.example.booking_app.dto.accommodation.CreateAccommodationRequestDto;
 import com.example.booking_app.model.Type;
 import java.math.BigDecimal;
 import java.util.List;

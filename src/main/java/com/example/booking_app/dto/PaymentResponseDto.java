@@ -15,4 +15,6 @@ public class PaymentResponseDto {
     private BigDecimal amountToPay;
 
     private String sessionUrl;
+
+    private String sessionId;
 }

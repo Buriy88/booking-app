@@ -1,4 +1,4 @@
-package com.example.booking_app.service;
+package com.example.booking_app.service.implementation;
 
 import com.example.booking_app.exception.EntityNotFoundException;
 import com.example.booking_app.model.Booking;

@@ -1,7 +1,7 @@
 package com.example.booking_app.mapper;
 
-import com.example.booking_app.dto.BookingRequestDto;
-import com.example.booking_app.dto.BookingDto;
+import com.example.booking_app.dto.booking.BookingRequestDto;
+import com.example.booking_app.dto.booking.BookingDto;
 import com.example.booking_app.model.Booking;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

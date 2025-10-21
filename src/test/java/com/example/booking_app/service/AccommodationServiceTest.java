@@ -16,12 +16,13 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.example.booking_app.dto.AccommodationDto;
-import com.example.booking_app.dto.CreateAccommodationRequestDto;
+import com.example.booking_app.dto.accommodation.AccommodationDto;
+import com.example.booking_app.dto.accommodation.CreateAccommodationRequestDto;
 import com.example.booking_app.exception.EntityNotFoundException;
 import com.example.booking_app.mapper.AccommodationMapper;
 import com.example.booking_app.model.Accommodation;
 import com.example.booking_app.repository.AccommodationRepository;
+import com.example.booking_app.service.implementation.AccommodationServiceImpl;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;

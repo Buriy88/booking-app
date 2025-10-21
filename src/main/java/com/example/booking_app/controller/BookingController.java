@@ -1,8 +1,8 @@
 package com.example.booking_app.controller;
 
-import com.example.booking_app.dto.BookingDto;
-import com.example.booking_app.dto.BookingRequestDto;
-import com.example.booking_app.dto.BookingSearchParameterDto;
+import com.example.booking_app.dto.booking.BookingDto;
+import com.example.booking_app.dto.booking.BookingRequestDto;
+import com.example.booking_app.dto.booking.BookingSearchParameterDto;
 import com.example.booking_app.model.Status;
 import com.example.booking_app.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;

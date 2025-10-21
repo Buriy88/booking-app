@@ -1,7 +1,7 @@
-package com.example.booking_app.service;
+package com.example.booking_app.service.implementation;
 
-import com.example.booking_app.dto.UserRegistrationRequestDto;
-import com.example.booking_app.dto.UserResponseDto;
+import com.example.booking_app.dto.security.UserRegistrationRequestDto;
+import com.example.booking_app.dto.security.UserResponseDto;
 import com.example.booking_app.exception.RegistrationException;
 import com.example.booking_app.mapper.UserMapper;
 import com.example.booking_app.model.User;

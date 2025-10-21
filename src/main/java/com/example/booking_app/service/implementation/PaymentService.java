@@ -1,4 +1,4 @@
-package com.example.booking_app.service;
+package com.example.booking_app.service.implementation;
 
 import com.example.booking_app.dto.PaymentRequestDto;
 import com.example.booking_app.dto.PaymentResponseDto;
@@ -26,8 +26,8 @@ public class PaymentService {
 
     private final StripeService stripeService;
 
-    public List<PaymentResponseDto> getPayments(Long userId) {
-        return paymentRepository.findAll().stream()
+    public List<PaymentResponseDto> getPayments(Long paymentId) {
+        return paymentRepository.findById(paymentId).stream()
             .map(this::mapToDto)
             .collect(Collectors.toList());
     }
@@ -77,6 +77,7 @@ public class PaymentService {
         dto.setStatus(payment.getStatus());
         dto.setAmountToPay(payment.getAmountToPay());
         dto.setSessionUrl(payment.getSessionUrl());
+        dto.setSessionId(payment.getSessionId());
         return dto;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.booking_app.controller;
 
-import com.example.booking_app.dto.BookingDto;
-import com.example.booking_app.dto.BookingRequestDto;
+import com.example.booking_app.dto.booking.BookingDto;
+import com.example.booking_app.dto.booking.BookingRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterAll;

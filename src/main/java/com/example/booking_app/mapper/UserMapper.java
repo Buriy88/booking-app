@@ -1,7 +1,7 @@
 package com.example.booking_app.mapper;
 
-import com.example.booking_app.dto.UserRegistrationRequestDto;
-import com.example.booking_app.dto.UserResponseDto;
+import com.example.booking_app.dto.security.UserRegistrationRequestDto;
+import com.example.booking_app.dto.security.UserResponseDto;
 import com.example.booking_app.model.Role;
 import com.example.booking_app.model.User;
 import org.mapstruct.Mapper;

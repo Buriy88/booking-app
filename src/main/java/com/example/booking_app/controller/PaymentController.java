@@ -2,7 +2,7 @@ package com.example.booking_app.controller;
 
 import com.example.booking_app.dto.PaymentRequestDto;
 import com.example.booking_app.dto.PaymentResponseDto;
-import com.example.booking_app.service.PaymentService;
+import com.example.booking_app.service.implementation.PaymentService;
 import com.stripe.exception.StripeException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -30,8 +30,8 @@ public class PaymentController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('CUSTOMER','MANAGER')")
-    @Operation(summary = "Get payments by user",
-        description = "Retrieves all payments for a specific user. " 
+    @Operation(summary = "Get payments by id",
+        description = "Retrieves payments for a specific user. "
             + "Managers can view any user’s payments, while customers only see their own.")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Payments retrieved successfully"),
@@ -40,8 +40,8 @@ public class PaymentController {
             description = "Forbidden for non-managers when accessing other users’ payments")
     })
     public List<PaymentResponseDto> getPayments(
-        @Parameter(description = "User ID") @RequestParam(required = false) Long userId) {
-        return paymentService.getPayments(userId);
+        @Parameter(description = "Payment ID") @RequestParam(required = false) Long paymentId) {
+        return paymentService.getPayments(paymentId);
     }
 
     @PostMapping
