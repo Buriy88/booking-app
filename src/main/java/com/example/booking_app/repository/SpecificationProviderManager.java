@@ -10,14 +10,13 @@ import java.util.stream.Collectors;
 @Component
 public class SpecificationProviderManager<T> {
 
-
     private final Map<String, SpecificationProvider<T>> providers;
 
     @Autowired
     public SpecificationProviderManager(List<SpecificationProvider<?>> providerList) {
         this.providers = providerList.stream()
             .map(p -> (SpecificationProvider<T>) p)
-            .collect(Collectors.toMap(SpecificationProvider::getKey, p -> p)); // CHANGED
+            .collect(Collectors.toMap(SpecificationProvider::getKey, p -> p));
     }
 
     public Specification<T> getSpecification(String key, List<String> values) {

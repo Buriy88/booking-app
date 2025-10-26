@@ -1,6 +1,8 @@
 package com.example.booking_app.model;
 
 import static com.example.booking_app.model.Role.ROLE_CUSTOMER;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,17 +24,23 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 255, unique = true)
     private String email;
 
+    @Column(nullable = false, length = 100)
     private String firstName;
 
+    @Column(nullable = false, length = 100)
     private String lastName;
 
+
+    @Column(nullable = false)
     private String password;
 
-
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
     private Role role = ROLE_CUSTOMER;
+
 
 
     @Override
@@ -49,8 +57,6 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
-
-    // решта методів UserDetails
     @Override
     public boolean isAccountNonExpired() {
         return true;

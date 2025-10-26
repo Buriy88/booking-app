@@ -11,7 +11,6 @@ import java.util.List;
 public interface BookingRepository
     extends JpaRepository<Booking, Long>, JpaSpecificationExecutor<Booking> {
 
-    @Override
     @EntityGraph(attributePaths = {"user", "accommodation"})
     List<Booking> findAll(Specification<Booking> spec);
 

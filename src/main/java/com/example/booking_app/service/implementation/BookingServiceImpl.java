@@ -52,7 +52,8 @@ public class BookingServiceImpl implements BookingService {
         booking.setStatus(Status.PENDING);
         Accommodation accommodation =
             accommodationRepository.findById(requestDto.getAccommodationId())
-                .orElseThrow(() -> new RuntimeException("Accommodation not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Booking with id:"
+                    + booking.getId() + "not found"));
         booking.setAccommodation(accommodation);
         bookingRepository.save(booking);
         notificationService.sendNotification(

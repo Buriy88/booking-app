@@ -2,6 +2,7 @@ package com.example.booking_app.service.implementation;
 
 import com.example.booking_app.dto.PaymentRequestDto;
 import com.example.booking_app.dto.PaymentResponseDto;
+import com.example.booking_app.mapper.PaymentMapper;
 import com.example.booking_app.model.Booking;
 import com.example.booking_app.model.Payment;
 import com.example.booking_app.model.PaymentStatus;
@@ -26,9 +27,11 @@ public class PaymentService {
 
     private final StripeService stripeService;
 
+    private final PaymentMapper paymentMapper;
+
     public List<PaymentResponseDto> getPayments(Long paymentId) {
         return paymentRepository.findById(paymentId).stream()
-            .map(this::mapToDto)
+            .map(paymentMapper::toDto)
             .collect(Collectors.toList());
     }
 
@@ -51,7 +54,7 @@ public class PaymentService {
         payment.setSessionUrl(session.getUrl());
         paymentRepository.save(payment);
 
-        return mapToDto(payment);
+        return paymentMapper.toDto(payment);
     }
 
     public PaymentResponseDto handleSuccess(String sessionId) throws StripeException {
@@ -59,7 +62,7 @@ public class PaymentService {
             .orElseThrow(() -> new RuntimeException("Payment not found"));
         payment.setStatus(PaymentStatus.PAID);
         paymentRepository.save(payment);
-        return mapToDto(payment);
+        return paymentMapper.toDto(payment);
     }
 
     public PaymentResponseDto handleCancel(String sessionId) {
@@ -67,17 +70,8 @@ public class PaymentService {
             .orElseThrow(() -> new RuntimeException("Payment not found"));
         payment.setStatus(PaymentStatus.CANCELED);
         paymentRepository.save(payment);
-        return mapToDto(payment);
+        return paymentMapper.toDto(payment);
     }
 
-    private PaymentResponseDto mapToDto(Payment payment) {
-        PaymentResponseDto dto = new PaymentResponseDto();
-        dto.setId(payment.getId());
-        dto.setBookingId(payment.getBookingId());
-        dto.setStatus(payment.getStatus());
-        dto.setAmountToPay(payment.getAmountToPay());
-        dto.setSessionUrl(payment.getSessionUrl());
-        dto.setSessionId(payment.getSessionId());
-        return dto;
-    }
+
 }
